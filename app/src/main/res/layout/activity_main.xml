@@ -3,14 +3,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
     tools:context="kaetera.taranis.Main">
 
-    <TextView
+
+    //Camera view as background
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/cameraView"/>
+
+    //Menu layout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/layoutMenu"
+        android:layout_centerVertical="true"
+        android:minHeight="250dp"
+        android:minWidth="38dp"
+        android:background="#e93d4041">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/igmBtnSettings"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/settings_24" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBtnAutoMode"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/igmBtnSettings"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/eye_24"/>
+
+        <kaetera.taranis.VerticalSeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBarThreshold"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/imgBtnAutoMode"
+            android:layout_marginTop="-6dp"
+            android:minWidth="90dp"/>
+
+    </RelativeLayout> //Left Menu
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/igmBtnKeepDetected"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/checkmark_24"/>
+
+
 </RelativeLayout>
