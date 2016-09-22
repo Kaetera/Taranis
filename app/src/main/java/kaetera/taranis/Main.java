@@ -4,8 +4,12 @@ import android.hardware.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 
 public class Main extends AppCompatActivity {
@@ -14,6 +18,10 @@ public class Main extends AppCompatActivity {
     private Camera camera = null;
     private CameraView cameraView = null;
     private FrameLayout cameraViewFrameLayout = null;
+    private ImageButton imgBtnKeepDetected = null;
+    private TextView txtViewTest = null;
+
+    private int counter = 0;
 
 
     @Override
@@ -24,18 +32,18 @@ public class Main extends AppCompatActivity {
         //Get java objects
         seekBarThreshold = (VerticalSeekBar) this.findViewById(R.id.seekBarThreshold);
         cameraViewFrameLayout = (FrameLayout) this.findViewById(R.id.cameraViewFrame);
+        imgBtnKeepDetected = (ImageButton) this.findViewById(R.id.imgBtnKeepDetected);
+        txtViewTest = (TextView) this.findViewById(R.id.txtViewTest);
 
 
         //Set listeners
         seekBarThreshold.setOnSeekBarChangeListener(this.onSeekBarThresholdChange);
+        imgBtnKeepDetected.setOnClickListener(this.onKeepDetectedClick);
 
 
         //Open camera
-        try{
-            camera = Camera.open();
-        } catch (Exception e){
-            Log.d("ERROR", "Failed to get camera (in onCreate): " + e.getMessage());
-        }
+        try { camera = Camera.open(); }
+        catch(Exception e) { Log.d("ERROR", "Failed to get camera (in onCreate): " + e.getMessage()); }
 
         if(camera != null) {
             cameraView = new CameraView(this, camera);//create a SurfaceView to show camera data
@@ -43,6 +51,18 @@ public class Main extends AppCompatActivity {
         }
 
     }
+
+
+
+
+    private View.OnClickListener onKeepDetectedClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            counter++;
+            txtViewTest.setText(Integer.toString(counter));
+        }
+    };
+
 
 
 
@@ -64,6 +84,7 @@ public class Main extends AppCompatActivity {
 
 
 
+    //Proto for image processing tests
 
 
 
