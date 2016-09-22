@@ -11,42 +11,42 @@
 
 
     //Camera view as background
-    <SurfaceView
+    <FrameLayout
+        android:id="@+id/cameraViewFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/cameraView"/>
+        android:layout_height="match_parent" />
 
     //Menu layout
     <RelativeLayout
+        android:id="@+id/layoutMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/layoutMenu"
         android:layout_centerVertical="true"
         android:minHeight="250dp"
         android:minWidth="38dp"
         android:background="#e93d4041">
 
         <ImageButton
+            android:id="@+id/igmBtnSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/igmBtnSettings"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:background="@drawable/settings_24" />
 
         <ImageButton
+            android:id="@+id/imgBtnAutoMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imgBtnAutoMode"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/igmBtnSettings"
             android:layout_marginTop="10dp"
             android:background="@drawable/eye_24"/>
 
         <kaetera.taranis.VerticalSeekBar
+            android:id="@+id/seekBarThreshold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/seekBarThreshold"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/imgBtnAutoMode"
             android:layout_marginTop="-6dp"
@@ -56,9 +56,9 @@
 
 
     <ImageButton
+        android:id="@+id/igmBtnKeepDetected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/igmBtnKeepDetected"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_centerVertical="true"

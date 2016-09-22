@@ -1,12 +1,20 @@
 package kaetera.taranis;
 
+import android.hardware.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.SeekBar;
+
 
 public class Main extends AppCompatActivity {
     //GUI items
-    VerticalSeekBar seekBarThreshold = null;
+    private VerticalSeekBar seekBarThreshold = null;
+    private Camera camera = null;
+    private CameraView cameraView = null;
+    private FrameLayout cameraViewFrameLayout = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,13 +23,26 @@ public class Main extends AppCompatActivity {
 
         //Get java objects
         seekBarThreshold = (VerticalSeekBar) this.findViewById(R.id.seekBarThreshold);
+        cameraViewFrameLayout = (FrameLayout) this.findViewById(R.id.cameraViewFrame);
 
 
         //Set listeners
         seekBarThreshold.setOnSeekBarChangeListener(this.onSeekBarThresholdChange);
 
-    }
 
+        //Open camera
+        try{
+            camera = Camera.open();
+        } catch (Exception e){
+            Log.d("ERROR", "Failed to get camera (in onCreate): " + e.getMessage());
+        }
+
+        if(camera != null) {
+            cameraView = new CameraView(this, camera);//create a SurfaceView to show camera data
+            cameraViewFrameLayout.addView(cameraView);//add the SurfaceView to the layout
+        }
+
+    }
 
 
 
@@ -40,6 +61,9 @@ public class Main extends AppCompatActivity {
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {/* Just override */}
     };
+
+
+
 
 
 
