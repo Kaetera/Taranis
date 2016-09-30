@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:opencv="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
@@ -11,10 +12,13 @@
 
 
     //Camera view as background
-    <FrameLayout
-        android:id="@+id/cameraViewFrame"
+    <org.opencv.android.JavaCameraView
+        android:id="@+id/cameraViewCV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        opencv:show_fps="true"
+        opencv:camera_id="any"  />
 
     //Menu layout
     <RelativeLayout
@@ -64,11 +68,24 @@
         android:layout_centerVertical="true"
         android:background="@drawable/checkmark_24"/>
 
+
+    <ImageView
+        android:id="@+id/imgViewTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:minHeight="200dp"
+        android:minWidth="200dp"/>
+
+
+
     <TextView
         android:id="@+id/txtViewTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="..."/>
+
 
 </RelativeLayout>
