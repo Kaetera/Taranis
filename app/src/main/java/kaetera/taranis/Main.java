@@ -1,12 +1,15 @@
 package kaetera.taranis;
 
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -14,10 +17,13 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-
+import org.opencv.imgproc.Imgproc;
 
 
 public class Main extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
@@ -27,6 +33,8 @@ public class Main extends AppCompatActivity implements CameraBridgeViewBase.CvCa
     private ImageButton mImgBtnKeepDetected = null;
     private CameraBridgeViewBase mOpenCvCameraView = null;
     private TextView mTxtViewTest = null;
+    private RelativeLayout mMainLayout = null;
+    private ImageView mImageView1 = null;
 
     //Other globals
     private int mCounter = 0;
@@ -41,11 +49,12 @@ public class Main extends AppCompatActivity implements CameraBridgeViewBase.CvCa
         setContentView(R.layout.activity_main);
 
         //Get java objects
+        mMainLayout = (RelativeLayout) this.findViewById(R.id.mainLayout);
         mSeekBarThreshold = (VerticalSeekBar) this.findViewById(R.id.seekBarThreshold);
         mImgBtnKeepDetected = (ImageButton) this.findViewById(R.id.imgBtnKeepDetected);
         mTxtViewTest = (TextView) this.findViewById(R.id.txtViewTest);
         mOpenCvCameraView = (CameraBridgeViewBase) this.findViewById(R.id.cameraViewCV);
-
+        mImageView1 = (ImageView) this.findViewById(R.id.imgView1);
 
         //Set listeners
         mSeekBarThreshold.setOnSeekBarChangeListener(this.onSeekBarThresholdChange);
@@ -135,23 +144,51 @@ public class Main extends AppCompatActivity implements CameraBridgeViewBase.CvCa
 
 
 
+    //Convert a Mat to a Bitmap image
+    public Bitmap Mat2BitmapImage(Mat m) {
+        Bitmap bmp = Bitmap.createBitmap(m.cols(), m.rows(), Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(m, bmp);
+        return bmp;
+    }
+
+
 
     //Implements CvCameraViewListener2
     //Callback function called on each frame received. Returns as a matrix the image that will
     //be displayed in the JavaCameraView surface widget.
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         Mat img = inputFrame.gray();
+        int inWidth = img.width();
+        int inHeigth = img.height();
+        int layWidth = mMainLayout.getWidth();
+        int layHeight = mMainLayout.getHeight();
+        //Imgproc.putText(m, "Yolo !", new Point(10,10), Core.FONT_HERSHEY_SCRIPT_SIMPLEX, 2, new Scalar(200,200,0), 2);
+
+
+        //Landscape mode
+        if(layWidth>layHeight) {}
+            float layoutRatio = layHeight/layWidth;
+            //Mat preview1 = img.submat( (int)((inHeigth-inWidth*layoutRatio)/2), (int)((inHeigth+inWidth*layoutRatio)/2), 0, inWidth-1);
+            Mat submat = img.submat(0,100,0,100);
+            Mat preview = new Mat(img.rows()+1, img.cols(), img.type(), new Scalar(90,50,100));
+
+
+
         Scalar mu = new Scalar(1,3,4,7);
 
-        mu = Core.mean(img);
+        mu = Core.mean(preview);
 
-        final String s = "mu : " + Double.toString((int)mu.val[0]);
+        final Mat tempM = img;
+        final String s = "lay=" + Integer.toString(layWidth) + "\n in=" + Integer.toString(inWidth);
         runOnUiThread(new Runnable() {
             public void run() {
                 //HERE I WANT TO UPDATE MY TEXT VIEW
                 mTxtViewTest.setText( s );
+
+                //mImageView1.setImageBitmap(Mat2BitmapImage(tempM));
             }
         });
+
 
         return img;
     }
@@ -167,5 +204,7 @@ public class Main extends AppCompatActivity implements CameraBridgeViewBase.CvCa
     //Implements CvCameraViewListener2
     public void onCameraViewStopped() {
     }
+
+
 
 }//End Main.java

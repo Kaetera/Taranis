@@ -8,7 +8,8 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="kaetera.taranis.Main">
+    tools:context="kaetera.taranis.Main"
+    android:id="@+id/mainLayout">
 
 
     //Camera view as background
@@ -18,7 +19,8 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         opencv:show_fps="true"
-        opencv:camera_id="any"  />
+        opencv:camera_id="any"
+        android:visibility="visible" />
 
     //Menu layout
     <RelativeLayout
@@ -69,23 +71,23 @@
         android:background="@drawable/checkmark_24"/>
 
 
-    <ImageView
-        android:id="@+id/imgViewTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:minHeight="200dp"
-        android:minWidth="200dp"/>
-
-
-
     <TextView
         android:id="@+id/txtViewTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:textColor="#FFFFFF"
         android:text="..."/>
+
+
+    <ImageView
+        android:id="@+id/imgView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#FFFFFF"
+        android:minHeight="100dp"
+        android:minWidth="100dp"/>
 
 
 </RelativeLayout>
